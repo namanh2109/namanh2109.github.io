@@ -20,13 +20,17 @@ yearEl.textContent = currentYear;
 ///////////////////////////////////////////////////////////
 // Make mobile navigation work
 
+
 const btnNavEl = document.querySelector(".btn-mobile-nav");
 const headerEl = document.querySelector(".header");
 
-btnNavEl.addEventListener("click", function () {
-  headerEl.classList.toggle("nav-open");
-});
-
+if (btnNavEl && headerEl) {
+  btnNavEl.addEventListener("click", function () {
+    headerEl.classList.toggle("nav-open");
+  });
+} else {
+  console.error("Element with class 'btn-mobile-nav' or 'header' not found.");
+}
 ///////////////////////////////////////////////////////////
 // Smooth scrolling animation
 
@@ -55,12 +59,13 @@ allLinks.forEach(function (link) {
       headerEl.classList.toggle("nav-open");
   });
 });
-
 ///////////////////////////////////////////////////////////
 // Sticky navigation
 
 const sectionHeroEl = document.querySelector(".section-hero");
-
+if (!sectionHeroEl) {
+  console.error("Element with class 'section-hero' not found.");
+}
 const obs = new IntersectionObserver(
   function (entries) {
     const ent = entries[0];
@@ -78,11 +83,10 @@ const obs = new IntersectionObserver(
     // In the viewport
     root: null,
     threshold: 0,
-    rootMargin: "-80px",
+    rootMargin: "-300px",
   }
 );
 obs.observe(sectionHeroEl);
-
 ///////////////////////////////////////////////////////////
 // Fixing flexbox gap property missing in some Safari versions
 function checkFlexGap() {
@@ -102,6 +106,12 @@ function checkFlexGap() {
   if (!isSupported) document.body.classList.add("no-flexbox-gap");
 }
 checkFlexGap();
+
+
+
+
+
+
 
 // https://unpkg.com/smoothscroll-polyfill@0.4.4/dist/smoothscroll.min.js
 
